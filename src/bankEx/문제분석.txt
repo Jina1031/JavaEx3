@@ -1,0 +1,49 @@
+- 메뉴
+   1.계좌개설  2.입금  3.출금  4.계좌이체 5.잔액조회  6.거래내역
+   7.계좌번호검색 8.이름검색 9.계좌리스트 10.종료
+     선택 =>
+
+
+- 저장 정보
+  1. 계좌정보(AccountVO)
+     계좌번호(accountNo), 이름(owner), 개설일자(launch_date)
+
+
+  2. 거래내역 내역(TransactionVO)
+     거래일자(transaction_date), 구분(kind:입금, 출금), 거래액(amount), 잔고(balance), 내역(info:계좌이체등)
+
+
+  3. 계좌 정보 및 계좌 거래 내역 정보(Account)
+      AccountVO accountVO
+      List<TransactionVO> transactionList
+
+      거래내역등록 : boolean addTransaction(TransactionVO vo)
+      거래내역리스트 : List<TransactionVO> getTransactionList() {
+
+      거래 내역 등록 : boolean addTransaction(TransactionVO vo)
+      마지막거래내역 : TransactionVO getLastTransaction()
+
+  4. Bank/BankImpl
+     List<Account> accountList
+
+     계좌개설 : Account addAccount(String owner)
+     입금 : TransactionVO deposit(String accountNo, long amount)
+     출금 : TransactionVO withdraw(String accountNo, long amount)
+     계좌이체 : TransactionVO accountTransfer(String fromAccountNo, String toAccountNo, long amount)
+     잔액조회 : long balance(String accountNo)
+     거래내역조회 : List<TransactionVO> transactionHistory(String accountNo)
+
+     계좌-번호검색 : Account readAccount(String accountNo)
+     계좌-이름검색 : List<Account> getAccountList(String owner)
+     계좌-전체리스트 : List<Account> getAccountList()
+
+
+  5. 계좌번호
+    String s="020-08-0000001";
+    String s1=s.substring(0, s.lastIndexOf("-"));
+    String s2=s.substring(s.lastIndexOf("-")+1);
+		
+    int n=Integer.parseInt(s2)+1;
+		
+    s=s1+"-"+String.format("%07d", n);
+    System.out.println(s);
